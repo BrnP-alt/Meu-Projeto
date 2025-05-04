@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagas de Estacionamento</title>
+</head>
+<body>
+    <h1>Vagas de Estacionamento</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Status</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vaga in vagas %}
+                <tr>
+                    <td>{{ vaga.numero }}</td>
+                    <td>{{ 'Ocupada' if vaga.ocupada else 'Livre' }}</td>
+                    <td>
+                        {% if not vaga.ocupada %}
+                            <a href="{% url 'ocupar_vaga' vaga.id %}">Ocupar</a>
+                        {% else %}
+                            <a href="{% url 'liberar_vaga' vaga.id %}">Liberar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
